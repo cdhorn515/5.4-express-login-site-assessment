@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extend: false
 }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/static', express.static(path.join(__dirname, 'public')));
 
 //session middleware
 app.use(session({
@@ -57,7 +57,13 @@ app.use(function(req, res, next){
   next();
 });
 
+app.get('/', function(req,res){
+res.render('index');
+});
 
+// app.post('/', function(req,res){
+// res.sendFile(path.join(__dirname + '/index.html'));
+// });
 
 app.get('/login', function(req, res){
   var context = {
@@ -89,9 +95,7 @@ if (req.session.user) {
 }
 });
 
-app.get('/', function(req,res){
-res.send("Welcome " + req.session.user.username + " !");
-});
+
 
 app.listen(3000, function(){
   console.log("app started successfully!");
