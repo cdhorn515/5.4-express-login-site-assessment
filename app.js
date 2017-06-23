@@ -95,7 +95,13 @@ if (req.session.user) {
 }
 });
 
+app.get('/', function (req, res){
+  res.render('index', users);
+});
 
+// app.get('/logout', function (req, res){
+//   res.send('thanks for stopping by!');
+// });
 
 app.listen(3000, function(){
   console.log("app started successfully!");
