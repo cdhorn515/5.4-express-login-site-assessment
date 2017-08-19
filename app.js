@@ -40,7 +40,6 @@ app.use(function(req, res, next){
   if (!req.session.user && pathname != '/login'){
     res.redirect('/login');
   } else {
-
     next();
   }
 });
@@ -60,10 +59,6 @@ app.use(function(req, res, next){
 app.get('/', function(req,res){
 res.render('index');
 });
-
-// app.post('/', function(req,res){
-// res.sendFile(path.join(__dirname + '/index.html'));
-// });
 
 app.get('/login', function(req, res){
   var context = {
