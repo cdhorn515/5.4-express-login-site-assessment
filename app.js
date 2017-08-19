@@ -76,7 +76,7 @@ app.post('/login', function(req, res){
   var username = req.body.username;
   var password = req.body.password;
 
-//check username against one input on form
+//check username against input on form
 var person = users.find(function(user){
   return user.username === username;
 });
@@ -89,19 +89,27 @@ if (person && person.password === password) {
 }
 
 if (req.session.user) {
-  res.redirect('/');
+  var context = {
+    username: req.session.user.username,
+    views: req.session.views
+  };
+  res.render('index', context);
 } else {
   res.redirect('/login');
 }
 });
 
-app.get('/', function (req, res){
-  res.render('index', users);
+app.post('/', function (req, res){
+  var context = {
+    username: req.session.user.username,
+    views: req.session.views
+  };
+  res.render('index', context);
 });
 
-// app.get('/logout', function (req, res){
-//   res.send('thanks for stopping by!');
-// });
+app.get('/logout', function (req, res){
+  res.render('logout');
+});
 
 app.listen(3000, function(){
   console.log("app started successfully!");
